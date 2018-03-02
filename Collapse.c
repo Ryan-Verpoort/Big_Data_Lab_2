@@ -9,7 +9,7 @@ int main()
 
 
     int **A;
-    int N = 16000;
+    int N = 10;
     int ConstN = 2;
     A = malloc(N * sizeof(int*)); // pointer to pointer array
 
@@ -21,13 +21,15 @@ int main()
     
   
     clock_t begin1 = clock();
-
-    #pragma omp for collapse(2)
+    #pragma omp_set_num_threads(2)
+    #pragma omp for collapse(2) 
+    
     for(int j = 0; j < N; j++) { // Fill up all the indices of A
 
 
 	for(int i = 0; i < N; i++) {
 	    A[j][i] = (ConstN * i) + j;
+	    printf("Number of threads: %d", omp_get_num_threads());
 	}
     }
     
@@ -37,18 +39,19 @@ int main()
     
 
 	for(int i = 0; i < N; i++) {
-	    //printf(" %d", A[j][i]);
+	    printf(" %d", A[j][i]);
 	}
 
-	//printf("\n");
+	printf("\n");
     }
 
     printf("\n \n \n"); // Some new lines for the output
  
     clock_t begin2 = clock();
     
-
-    #pragma omp for collapse(2)
+    
+    #pragma omp_set_num_threads(2)
+    #pragma omp for collapse(2) 
     for(int j = 0; j < N; j++) { // loop indexes only the bottom triangle of matrix and performs the transpose
     
 
@@ -68,11 +71,11 @@ int main()
     
 
 	for(int i = 0; i < N; i++) {
-	  //  printf(" %d", A[j][i]);
+	    printf(" %d", A[j][i]);
 	}
 	
 
-	//printf("\n");
+	printf("\n");
     }
 
 
