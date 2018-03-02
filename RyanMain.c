@@ -36,10 +36,10 @@ int main()
     printf("\n");
     printf("\n");
 
-
+	clock_t begin2 = clock();
 #pragma omp parallel sections
 {
-	clock_t begin2 = clock();
+
 	#pragma omp section  
    {
    		int j =0;
@@ -83,9 +83,8 @@ int main()
 		}
 	}
 	} 
-	 	clock_t end2 = clock();
 }
-
+	 	clock_t end2 = clock();
  printf("Transposed Array \n");
     for(int j = 0; j < N; j++) { // Prints out the transposed array now
 
