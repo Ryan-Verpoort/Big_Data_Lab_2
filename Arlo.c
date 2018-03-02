@@ -9,7 +9,7 @@ int main()
 
 
     int **A;
-    int N = 100;
+    int N = 16000;
     int ConstN = 2;
     A = malloc(N * sizeof(int*)); // pointer to pointer array
 
