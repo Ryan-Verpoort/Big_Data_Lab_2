@@ -21,11 +21,12 @@ int main()
     
     clock_t begin1 = clock();
     
-
+    //#pragma omp parallel num_threads(4)
+    //#pragma omp for schedule(static, N)
     
     for(int j = 0; j < N; j++) { // Fill up all the indices of A
 
- 
+   //#pragma omp parallel for schedule(dynamic, N)
 	for(int i = 0; i < N; i++) {
 	    A[j][i] = (ConstN * i) + j;
 	}
@@ -33,24 +34,25 @@ int main()
     
     clock_t end1 = clock();
     
-  //  #pragma omp parallel num_threads(4)
     for(int j = 0; j < N; j++) { // Prints the original array
     
-   // #pragma omp for
+
 	for(int i = 0; i < N; i++) {
-	 //   printf(" %d", A[j][i]);
+	    //printf(" %d", A[j][i]);
 	}
-	//#pragma omp single
+
 	//printf("\n");
     }
 
     printf("\n \n \n"); // Some new lines for the output
  
     clock_t begin2 = clock();
+    #pragma omp parallel num_threads(4)
+    #pragma omp for schedule(static,N)
     
     for(int j = 0; j < N; j++) { // loop indexes only the bottom triangle of matrix and performs the transpose
     
-        
+       //#pragma omp parallel for schedule(dynamic, N)
 	for(int i = 0; i < j; i++) {
 	
 		int temp = A[j][i];
@@ -67,7 +69,7 @@ int main()
     
 	//#pragma omp for
 	for(int i = 0; i < N; i++) {
-	    //printf(" %d", A[j][i]);
+	  //  printf(" %d", A[j][i]);
 	}
 	
 	//#pragma omp single
