@@ -5,11 +5,19 @@
 
 int main()
 {
+<<<<<<< Updated upstream
 
+=======
+    
+>>>>>>> Stashed changes
 
 
     int** A;
     int N = 4;
+<<<<<<< Updated upstream
+=======
+    int ConstN = N;
+>>>>>>> Stashed changes
     A = malloc(N * sizeof(int*)); // pointer to pointer array
 
     // allocate the memory for the entire array
@@ -17,14 +25,24 @@ int main()
     for(int k = 0; k < N; k++) {
 	A[k] = malloc(N * sizeof(int));
     }
+<<<<<<< Updated upstream
 	
 	clock_t begin1 = clock();
+=======
+
+    clock_t begin1 = clock();
+>>>>>>> Stashed changes
     for(int j = 0; j < N; j++) { // Fill up all the indices of A
 	for(int i = 0; i < N; i++) {
 	    A[j][i] = (N * i) + j;
 	}
     }
+<<<<<<< Updated upstream
 	clock_t end1 = clock();
+=======
+    clock_t end1 = clock();
+
+>>>>>>> Stashed changes
     for(int j = 0; j < N; j++) { // Prints the original array
 	for(int i = 0; i < N; i++) {
 	    printf(" %d", A[j][i]);
@@ -36,6 +54,11 @@ int main()
     printf("\n");
     printf("\n");
 
+<<<<<<< Updated upstream
+=======
+    clock_t begin2 = clock();
+    for(int j = 0; j < N; j++) { // loop indexes only the bottom triangle of matrix and performs the transpose
+>>>>>>> Stashed changes
 
 #pragma omp parallel sections
 {
@@ -53,6 +76,7 @@ int main()
 		temp = 0;
 		}
 	}
+<<<<<<< Updated upstream
 	} 
 	#pragma omp section  
    {		int j =1;
@@ -85,6 +109,10 @@ int main()
 	} 
 	 	clock_t end2 = clock();
 }
+=======
+    }
+    clock_t end2 = clock();
+>>>>>>> Stashed changes
 
  printf("Transposed Array \n");
     for(int j = 0; j < N; j++) { // Prints out the transposed array now
@@ -105,8 +133,12 @@ int main()
 	
     free(A);
 
+<<<<<<< Updated upstream
     //clock_t end = clock();
 	double time_spent1 = (double)(end1 - begin1) / CLOCKS_PER_SEC;
+=======
+    double time_spent1 = (double)(end1 - begin1) / CLOCKS_PER_SEC;
+>>>>>>> Stashed changes
     double time_spent2 = (double)(end2 - begin2) / CLOCKS_PER_SEC;
     printf("%lf \n",time_spent1+ time_spent2);
  
