@@ -8,7 +8,7 @@ The openMP solution looks at the matrix in three nested for loops:
 	2.) The second loop goes through the bottom right of the array.
 	3.) The third loop goes through the remaining two quadrants.
 
-This process is illstrated below where the numbers represent the three searching loops implemented:
+This process is illustrated below where the numbers represent the three searching loops implemented:
 
 	-------------------------
 	| 1 | 1 | 1 | 3 | 3 | 3 | 
