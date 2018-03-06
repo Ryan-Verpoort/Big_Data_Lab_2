@@ -5,43 +5,40 @@
 
 int main()
 {
-    
-
-
-    int **A;
     int N = 10;
-    int ConstN = 2;
-    A = malloc(N * sizeof(int*)); // pointer to pointer array
+	int* A[N];
 
-    // allocate the memory for the entire array
-
-    for(int k = 0; k < N; k++) {
-	A[k] = malloc(N * sizeof(int));
-    }
-    
-  
+	for (int j = 0; j < N; j++)
+	{
+		A[j] = malloc(N*sizeof(*A[j]));
+		for (int i = 0; i < N; i++)
+		{
+			//initialize values to 0
+			A[j][i] = 0;
+		}
+	}    
+	 
     clock_t begin1 = clock();
     #pragma omp_set_num_threads(2)
     #pragma omp for collapse(2) 
     
-    for(int j = 0; j < N; j++) { // Fill up all the indices of A
-
-
-	for(int i = 0; i < N; i++) {
-	    A[j][i] = (ConstN * i) + j;
-	    printf("Number of threads: %d", omp_get_num_threads());
-	}
+    // Fill up all the indices of A
+    for(int j = 0; j < N; j++) 
+    { 
+		for(int i = 0; i < N; i++) 
+		{
+			A[j][i] = (N * i) + j;
+		}
     }
     
     clock_t end1 = clock();
     
-    for(int j = 0; j < N; j++) { // Prints the original array
-    
-
-	for(int i = 0; i < N; i++) {
-	    printf(" %d", A[j][i]);
-	}
-
+    for(int j = 0; j < N; j++) // Prints the original array
+    { 
+		for(int i = 0; i < N; i++) 
+		{
+			printf(" %d", A[j][i]);
+		}
 	printf("\n");
     }
 
@@ -50,46 +47,37 @@ int main()
     clock_t begin2 = clock();
     
     
-    #pragma omp_set_num_threads(2)
+    //#pragma omp_set_num_threads(2)
     #pragma omp for collapse(2) 
-    for(int j = 0; j < N; j++) { // loop indexes only the bottom triangle of matrix and performs the transpose
-    
-
-	for(int i = 0; i < j; i++) {
-	
-		int temp = A[j][i];
-		A[j][i] = A[i][j];
-		A[i][j] = temp;
-		temp = 0;
-	}
+    for(int j = 0; j < N; j++)  // loop indexes only the bottom triangle of matrix and performs the transpose
+    {
+		for(int i = 0; i < j; i++) 
+		{
+			int temp = A[j][i];
+			A[j][i] = A[i][j];
+			A[i][j] = temp;
+			temp = 0;
+		}
     }
     
     clock_t end2 = clock();
     
-
-    for(int j = 0; j < N; j++) { // Prints out the transposed array now
-    
-
-	for(int i = 0; i < N; i++) {
-	    printf(" %d", A[j][i]);
-	}
-	
-
+    for(int j = 0; j < N; j++)  // Prints out the transposed array now
+    {
+		for(int i = 0; i < N; i++) 
+		{
+			printf(" %d", A[j][i]);
+		}
 	printf("\n");
     }
 
-
-    for(int i = 0; i < N; i++) { // frees all the memory in teh matrix A
+    for(int i = 0; i < N; i++) { // frees all the memory in the matrix A
 	free(A[i]);
     }
-
-    free(A);
-
     
     double time_spent1 = (double)(end1 - begin1) / CLOCKS_PER_SEC;
     double time_spent2 = (double)(end2 - begin2) / CLOCKS_PER_SEC;
     printf("%lf \n",time_spent1+ time_spent2);
  
-
     return 0;
 }
