@@ -5,20 +5,20 @@
 #include "omp.h"
 
 #define NTHREADS 4
-#define N 10
+#define N 10//8192
 int* A[N];
 pthread_mutex_t mutex1 = PTHREAD_MUTEX_INITIALIZER;
 
-void *CalculateSum(void *args)
+void *Transmute(void *args)
 {
-    int *argPtr = args;
+   // int *argPtr = args;
 
-    int i,j,sum = 0;
-    int threadindex = *argPtr;
-
+    //int i,j,sum = 0;
+   // int threadindex = *argPtr;
+ 
     for(int i = 0; i < N; i++)
     {
-	if (i % NTHREADS != threadindex) continue;
+	//if (i % NTHREADS != threadindex) continue;
 	for(int j = 0; j < i; j++) 
 	{
 		int temp = A[i][j];
@@ -27,10 +27,11 @@ void *CalculateSum(void *args)
 	}
     }
 
-    pthread_mutex_lock( &mutex1 ); //Mutex must go here
-    pthread_mutex_unlock( &mutex1 );
+    //Mutex must go here
+//pthread_mutex_lock( &mutex1 );
+  //pthread_mutex_unlock( &mutex1 );
     // Pass the value back:
-    *argPtr = sum;
+    //*argPtr = sum;
 }
 
 
@@ -64,19 +65,35 @@ int main()
     }
 
     printf("\n \n \n"); // Some new lines for the output
- 
+ pthread_mutex_init(&mutex1, NULL);
     clock_t begin2 = clock();
     
-    	pthread_mutex_init(&mutex1, NULL);
+    	
 	for(int i=0; i < NTHREADS; i++)
 	{
 		thread_args[i] = i;
-		pthread_create( &thread_id[i], NULL, CalculateSum, &thread_args[i]);
+		pthread_create( &thread_id[i], NULL, Transmute, &thread_args[i]);
 	}
+    for(int j=0; j < NTHREADS; j++)
+    {
+        pthread_join( thread_id[j], NULL);
+
+    }
 //////////////////
     
     clock_t end2 = clock();
-    
+
+    clock_t begin3 = clock();
+    for(int i = 0; i < N; i++)
+    {
+	for(int j = 0; j < i; j++) 
+	{
+		int temp = A[i][j];
+		A[i][j] = A[j][i];
+		A[j][i] = temp;
+	}
+    }
+    clock_t end3 = clock();
     for(int j = 0; j < N; j++)  // Prints out the transposed array now
     {
 		for(int i = 0; i < N; i++) 
@@ -92,7 +109,8 @@ int main()
     
     double time_spent1 = (double)(end1 - begin1) / CLOCKS_PER_SEC;
     double time_spent2 = (double)(end2 - begin2) / CLOCKS_PER_SEC;
+    double time_spent3 = (double)(end3 - begin3) / CLOCKS_PER_SEC;
     printf("%lf \n",time_spent1+ time_spent2);
- 
+ printf("%lf \n", time_spent1+ time_spent3);
     return 0;
 }
