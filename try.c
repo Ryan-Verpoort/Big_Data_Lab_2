@@ -5,16 +5,16 @@
 #include "omp.h"
 
 #define NTHREADS 4
-#define N 10//8192
+#define N 10
 int* A[N];
 pthread_mutex_t mutex1 = PTHREAD_MUTEX_INITIALIZER;
 
-void *Transmute(void *args)
+void *Transpose()//void *args)
 {
-   // int *argPtr = args;
+    //int *argPtr = args;
 
     //int i,j,sum = 0;
-   // int threadindex = *argPtr;
+    //int threadindex = *argPtr;
  
     for(int i = 0; i < N; i++)
     {
@@ -24,6 +24,7 @@ void *Transmute(void *args)
 		int temp = A[i][j];
 		A[i][j] = A[j][i];
 		A[j][i] = temp;
+		//printf("TEST");
 	}
     }
 
@@ -39,7 +40,7 @@ int main()
 {
         //int N = 10;
     pthread_t thread_id[NTHREADS];
-    int thread_args[NTHREADS];
+    //int thread_args[NTHREADS];
 
 	clock_t begin1 = clock();
 	// Fill up all the indices of A
@@ -65,14 +66,14 @@ int main()
     }
 
     printf("\n \n \n"); // Some new lines for the output
- pthread_mutex_init(&mutex1, NULL);
+ //pthread_mutex_init(&mutex1, NULL);
     clock_t begin2 = clock();
     
     	
 	for(int i=0; i < NTHREADS; i++)
 	{
 		thread_args[i] = i;
-		pthread_create( &thread_id[i], NULL, Transmute, &thread_args[i]);
+		pthread_create( &thread_id[i], NULL, Transpose, NULL);
 	}
     for(int j=0; j < NTHREADS; j++)
     {
