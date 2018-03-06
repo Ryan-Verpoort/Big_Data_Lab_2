@@ -7,7 +7,7 @@
 #include "omp.h"
 
 #define NTHREADS 4
-#define N 8192	
+#define N 8192
 int* A[N];
 //pthread_mutex_t mutex1 = PTHREAD_MUTEX_INITIALIZER;
 
@@ -15,20 +15,40 @@ void *Transpose(void *args)
 {
     int *argPtr = args;
 
-    //int i,j,sum = 0;
+    int i,j,sum = 0;
     int threadindex = *argPtr;
- 
-    for(int i = 0; i < N; i++)
-    {
-		if (i % NTHREADS != threadindex) continue;
-		for(int j = 0; j < i; j++) 
-		{
-			int temp = A[i][j];
-			A[i][j] = A[j][i];
-			A[j][i] = temp;
-			//printf("TEST");
+    int temp =0;
+
+		for (i = 0; i < N / 2 - 1; i++) 
+		{ if (i % NTHREADS != threadindex) continue;
+			for (j = i + 1; j < N / 2; j++) 
+			{
+				temp = A[i][j];
+				A[i][j] = A[j][i];
+				A[j][i] = temp;
+			}
 		}
-    }
+
+		for (i = N / 2; i < N - 1; i++) 
+		{ if (i % NTHREADS != threadindex) continue;
+			for (j = i + 1; j < N; j++) 
+			{
+				temp = A[i][j];
+				A[i][j] = A[j][i];
+				A[j][i] = temp;
+			}
+		}
+
+		for (i = N / 2; i < N; i++) 
+		{ if (i % NTHREADS != threadindex) continue;
+			for (j = 0; j < N / 2; j++) 
+			{
+				temp = A[i][j];
+				A[i][j] = A[j][i];
+				A[j][i] = temp;
+			}
+		}
+    
     //Mutex must go here
 	//pthread_mutex_lock( &mutex1 );
   	//pthread_mutex_unlock( &mutex1 );
