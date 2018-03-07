@@ -29,11 +29,11 @@ These results were recorded using:
 Intel® Pentium(R) CPU N3540 @ 2.16GHz with four cores and four threads.
 64-bit version of ubuntu 16.04 LTS
 4GB of RAM
-
+:clock1:
 ```	
 Naive: 
 	--------------------------------
-	|   Matrix Size    |   Time :clock1:   |
+	|   Matrix Size    |   Time    |
 	--------------------------------
 	| 	128        | 0.000230  |
 	--------------------------------
@@ -45,7 +45,7 @@ Naive:
 
 Pthreads: 
 	---------------------------------------------
-	| Threads |   Matrix Size  |     Time	 :clock1:   |
+	| Threads |   Matrix Size  |     Time	    |
 	---------------------------------------------
 	|    4    |   	128        |	0.000670    |
 	|    8    |    	128        |	0.001011    |
@@ -68,7 +68,7 @@ Pthreads:
 
 OpenMP: 
 	---------------------------------------------
-	| Threads |  Matrix Size   |      Time :clock1:     |
+	| Threads |  Matrix Size   |      Time      |
 	---------------------------------------------
 	|   4     |     128        |	0.000872    |
 	|   8     |     128        |	0.001248    |
