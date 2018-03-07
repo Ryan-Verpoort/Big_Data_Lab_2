@@ -1,12 +1,10 @@
-
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <pthread.h>
 #include "omp.h"
 
-#define NTHREADS 4
+#define NTHREADS 128
 #define N 8192
 int* A[N];
 //pthread_mutex_t mutex1 = PTHREAD_MUTEX_INITIALIZER;
@@ -69,23 +67,22 @@ int main()
 			A[i] = malloc(N*sizeof(*A[i]));
 			for (int j = 0; j < N; j++)
 			{
-				//initialize values to 0
 				A[i][j] = (N * i) + j;
 			}
 		}    
-
+/*
     // Prints the original array
     for(int j = 0; j < N; j++) 
     { 
 		for(int i = 0; i < N; i++) 
 		{
-			//printf(" %d", A[j][i]);
+			printf(" %d", A[j][i]);
 		}
-		//printf("\n");
+		printf("\n");
     }
 	// Some new lines for the output
-    //printf("\n \n \n"); 
-	//pthread_mutex_init(&mutex1, NULL);
+    printf("\n \n \n"); 
+*/
 
  double begin1 = omp_get_wtime();
 		for(int i = 0; i < NTHREADS; i++)
@@ -111,23 +108,24 @@ int main()
 		}
  	double end2 = omp_get_wtime() - begin2;
 
+/*
 	// Prints out the transposed array now
     for(int j = 0; j < N; j++)
     {
 		for(int i = 0; i < N; i++) 
 		{
-			//printf(" %d", A[j][i]);
+			printf(" %d", A[j][i]);
 		}
-		//printf("\n");
+		printf("\n");
     }
-
+*/
 	// frees all the memory in the matrix A
     for(int i = 0; i < N; i++) 
 	{ 
 		free(A[i]);
     }
     
-    printf("%lf \n", end1);
- 	printf("%lf \n", end2);
+    printf("Pthread: %lf \n", end1);
+ 	printf("naive: %lf \n", end2);
     return 0;
 }
