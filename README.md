@@ -30,7 +30,7 @@ Intel® Pentium(R) CPU N3540 @ 2.16GHz with four cores and four threads.
 64-bit version of ubuntu 16.04 LTS
 4GB of RAM
 
-	
+```	
 Naive: 
 	--------------------------------
 	|   Matrix Size    |   Time    |
@@ -90,18 +90,4 @@ OpenMP:
 	---------------------------------------------
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```
