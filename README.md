@@ -33,7 +33,7 @@ Intel® Pentium(R) CPU N3540 @ 2.16GHz with four cores and four threads.
 ```	
 Naive: 
 	--------------------------------
-	|   Matrix Size    |   Time    |
+	|   Matrix Size    |   Time :clock1:   |
 	--------------------------------
 	| 	128        | 0.000230  |
 	--------------------------------
@@ -45,7 +45,7 @@ Naive:
 
 Pthreads: 
 	---------------------------------------------
-	| Threads |   Matrix Size  |     Time	    |
+	| Threads |   Matrix Size  |     Time	 :clock1:   |
 	---------------------------------------------
 	|    4    |   	128        |	0.000670    |
 	|    8    |    	128        |	0.001011    |
@@ -68,7 +68,7 @@ Pthreads:
 
 OpenMP: 
 	---------------------------------------------
-	| Threads |  Matrix Size   |      Time      |
+	| Threads |  Matrix Size   |      Time :clock1:     |
 	---------------------------------------------
 	|   4     |     128        |	0.000872    |
 	|   8     |     128        |	0.001248    |
