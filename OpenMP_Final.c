@@ -83,7 +83,7 @@ int main()
 		}
 	}
 
-	double StopOpenMP = omp_get_wtime() - StartParallel;
+	double StopOpenMP = omp_get_wtime() - StartOpenMP;
 /*
 	printf("\n Printing the transposed array \n");
 	for(int i = 0; i < N; i++)  
