@@ -24,12 +24,12 @@ This process is illustrated below where the numbers represent the three searchin
 	| 3 | 3 | 3 | 2 | 2 | 2 |
 	-------------------------
 
-Arlo Results:
+Arlo Results :trollface: :
 These results were recorded using:
 Intel® Pentium(R) CPU N3540 @ 2.16GHz with four cores and four threads.
 64-bit version of ubuntu 16.04 LTS
 4GB of RAM
-:clock1:
+
 ```	
 Naive: 
 	--------------------------------
