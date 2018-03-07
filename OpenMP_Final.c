@@ -11,10 +11,9 @@ int main()
 	int *A[N];
 	int NumberOfThreads = 4;
 	int SizeOfChunk = 4;
-	int temp = 0;
-	int i;
-	int j;
+	int i, j, temp = 0;
 
+	// Fill up all the indices of A
 	for (int j = 0; j < N; j++)
 	{
 		A[j] = malloc(N*sizeof(*A[j]));
@@ -37,7 +36,7 @@ int main()
 */
 
 	omp_set_num_threads(NumberOfThreads);
-	double StartParallel = omp_get_wtime();
+	double StartOpenMP = omp_get_wtime();
 
 	// Loop through the top left quadrant of the array
 	#pragma omp parallel shared(N, A,SizeOfChunk) private(temp, i, j)
@@ -84,7 +83,7 @@ int main()
 		}
 	}
 
-	double StopParallel = omp_get_wtime() - StartParallel;
+	double StopOpenMP = omp_get_wtime() - StartParallel;
 /*
 	printf("\n Printing the transposed array \n");
 	for(int i = 0; i < N; i++)  
@@ -122,12 +121,14 @@ int main()
 		printf("\n");
 	}
 */
-        printf("\n%lf Parallel Time: \n", StopParallel);
-        printf("\n%lf Naive Time: \n", StopNaive);
+	// frees all the memory in the matrix A
+    for(i = 0; i < N; i++) 
+	{ 
+		free(A[i]);
+    }
 
-	for (int k = 0; k < N; k++) 
-	{
-		free(A[k]);
-	}
-
+	//Print Time taken for Parallel and Naive Approach
+	printf("OpenMP Parallel Time: %lf\n", StopOpenMP);
+    printf("Naive Time: %lf\n", StopNaive);
+    return 0;
 }
